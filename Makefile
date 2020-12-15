@@ -1,4 +1,4 @@
-UTILS_PATH := build-utils
+UTILS_PATH := build_utils
 TEMPLATES_PATH := .
 
 SERVICE_NAME := swag-dudoser
