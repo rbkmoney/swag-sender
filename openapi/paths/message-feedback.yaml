@@ -1,0 +1,21 @@
+post:
+  summary: Отправка обратной связи на почту
+  operationId: sendFeedbackEmailMsg
+  tags:
+    - messages
+  parameters:
+    - $ref: '../components/parameters/requestId.yaml'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            text:
+              description: Содержание сообщения
+              type: string
+  responses:
+    '200':
+      description: Сообщение успешно отправлено
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
