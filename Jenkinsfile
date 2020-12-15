@@ -3,7 +3,7 @@
 
 build('swag-dudoser', 'docker-host') {
     checkoutRepo()
-    loadBuildUtils('build-utils')
+    loadBuildUtils('build_utils')
 
     def pipeDefault
     def withWsCache
