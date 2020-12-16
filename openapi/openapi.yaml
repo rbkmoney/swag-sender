@@ -13,7 +13,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 paths:
-  /messsage/feedback:
+  /message/feedback:
     $ref: ./paths/message-feedback.yaml
 servers:
   - url: 'https://{subdomain}.rbk.money/sender/{version}'
