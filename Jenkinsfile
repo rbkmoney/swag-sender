@@ -1,7 +1,7 @@
 #!groovy
 // -*- mode: groovy -*-
 
-build('swag-dudoser', 'docker-host') {
+build('swag-sender', 'docker-host') {
     checkoutRepo()
     loadBuildUtils('build_utils')
 

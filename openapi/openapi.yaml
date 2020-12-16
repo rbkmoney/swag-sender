@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: RBKmoney Dudoser API
+  title: RBKmoney Sender API
   description:
     $ref: './docs/api.md'
   termsOfService: http://rbk.money/
@@ -16,7 +16,7 @@ paths:
   /messsage/feedback:
     $ref: ./paths/message-feedback.yaml
 servers:
-  - url: 'https://{subdomain}.rbk.money/dudoser/{version}'
+  - url: 'https://{subdomain}.rbk.money/sender/{version}'
     variables:
       subdomain:
         default: api
