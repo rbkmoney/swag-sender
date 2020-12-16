@@ -1,0 +1,129 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "RBKmoney Sender API",
+    "description": "RBKmoney Sender API является интерфейсом для отправки сообщений\n\nСхема которого описывается в соответствии со стандартом [OpenAPI 3][OAS3].\n\n[OAS3]: https://swagger.io/specification/\n\n## Формат содержимого\n\nЛюбой запрос к API должен выполняться в кодировке UTF-8 и с указанием\nсодержимого в формате JSON.\n\n```\nContent-Type: application/json; charset=utf-8\n```\n",
+    "termsOfService": "http://rbk.money/",
+    "contact": {
+      "name": "RBKmoney support team",
+      "email": "support@rbk.money",
+      "url": "https://developer.rbk.money"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "paths": {
+    "/messsage/feedback": {
+      "post": {
+        "summary": "Отправка обратной связи на почту",
+        "operationId": "sendFeedbackEmailMsg",
+        "tags": [
+          "messages"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "description": "Содержание сообщения",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Сообщение успешно отправлено"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://{subdomain}.rbk.money/sender/{version}",
+      "variables": {
+        "subdomain": {
+          "default": "api"
+        },
+        "version": {
+          "enum": [
+            "v1"
+          ],
+          "default": "v1"
+        }
+      }
+    }
+  ],
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Для аутентификации вызовов мы используем [JWT](https://jwt.io). Cоответствующий ключ передается в заголовке.\n```shell\n  Authorization: Bearer {TOKENIZATION|PRIVATE_JWT}\n```\n"
+      }
+    },
+    "parameters": {
+      "requestId": {
+        "name": "X-Request-ID",
+        "in": "header",
+        "description": "Уникальный идентификатор запроса к системе",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 64,
+          "example": "RQID-Z08G3EFE5DZ429VVO755BM19D51"
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Переданы ошибочные данные",
+        "content": {
+          "application/json": {
+            "schema": {
+              "description": "Ошибка в переданных данных",
+              "type": "object",
+              "required": [
+                "code"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "enum": [
+                    "invalidRequest"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
