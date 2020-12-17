@@ -16,7 +16,7 @@
     }
   },
   "paths": {
-    "/messsage/feedback": {
+    "/message/feedback": {
       "post": {
         "summary": "Отправка обратной связи на почту",
         "operationId": "sendFeedbackEmailMsg",

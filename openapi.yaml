@@ -26,7 +26,7 @@ info:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
 paths:
-  /messsage/feedback:
+  /message/feedback:
     post:
       summary: Отправка обратной связи на почту
       operationId: sendFeedbackEmailMsg
