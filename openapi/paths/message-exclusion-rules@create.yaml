@@ -1,0 +1,23 @@
+post:
+  summary: Создание правила исключения рассылки
+  tags:
+    - MessageExclusionRules
+  operationId: createMessageExclusionRule
+  parameters:
+    - $ref: '../components/parameters/requestId.yaml'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../components/requests/MessageExclusionRuleRequest.yaml'
+  responses:
+    '200':
+      description: Созданное правило исключения рассылки
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/MessageExclusionRule.yaml'
+    '401':
+      $ref: '../components/responses/AccessForbidden.yaml'
+    '404':
+      $ref: '../components/responses/NotFound.yaml'

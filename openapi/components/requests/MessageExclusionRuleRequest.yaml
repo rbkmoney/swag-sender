@@ -1,0 +1,17 @@
+description: Запрос на создание правила исключения рассылки
+type: object
+required:
+  - name
+  - type
+  - value
+properties:
+  name:
+    description: Название правила
+    type: string
+  type:
+    $ref: '../schemas/MessageExclusionRuleType.yaml'
+  value:
+    description: Набор исключенных значений
+    type: array
+    items:
+      type: string

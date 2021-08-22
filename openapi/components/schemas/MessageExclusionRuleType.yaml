@@ -1,0 +1,4 @@
+description: Тип правила исключения рассылки
+type: string
+enum:
+  - shop
