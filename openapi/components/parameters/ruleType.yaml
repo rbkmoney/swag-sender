@@ -1,0 +1,6 @@
+name: type
+in: query
+description: Тип правила
+required: true
+schema:
+  $ref: '../schemas/MessageExclusionRuleType.yaml'

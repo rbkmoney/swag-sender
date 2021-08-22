@@ -1,0 +1,19 @@
+get:
+  summary: Получение правила исключения рассылки
+  tags:
+    - MessageExclusionRules
+  operationId: getMessageExclusionRule
+  parameters:
+    - $ref: '../components/parameters/requestId.yaml'
+    - $ref: '../components/parameters/ruleID.yaml'
+  responses:
+    '200':
+      description: Правило исключения рассылки
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/MessageExclusionRule.yaml'
+    '401':
+      $ref: '../components/responses/AccessForbidden.yaml'
+    '404':
+      $ref: '../components/responses/NotFound.yaml'

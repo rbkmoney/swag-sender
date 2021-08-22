@@ -2,4 +2,4 @@ description: Заданный ресурс не найден
 content:
   application/json:
     schema:
-      $ref: '#/components/schemas/GeneralError'
+      $ref: '../schemas/Error.yaml'
