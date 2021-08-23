@@ -21,3 +21,21 @@ post:
       $ref: '../components/responses/AccessForbidden.yaml'
     '404':
       $ref: '../components/responses/NotFound.yaml'
+
+get:
+  summary: Поиск правил исключения рассылки по типу
+  tags:
+    - MessageExclusionRules
+  operationId: getMessageExclusionRulesByType
+  parameters:
+    - $ref: '../components/parameters/requestId.yaml'
+    - $ref: '../components/parameters/ruleType.yaml'
+  responses:
+    '200':
+      description: Список правил исключения рассылки
+      content:
+        application/json:
+          schema:
+            $ref: '../components/responses/MessageExclusionRuleList.yaml'
+    '401':
+      $ref: '../components/responses/AccessForbidden.yaml'
