@@ -1,0 +1,21 @@
+type: object
+required:
+  - id
+  - name
+  - type
+  - value
+properties:
+  id:
+    description: Идентификатор правила
+    type: integer
+    format: int64
+  name:
+    description: Название правила
+    type: string
+  type:
+    $ref: 'MessageExclusionRuleType.yaml'
+  value:
+    description: Набор исключенных значений
+    type: array
+    items:
+      type: string

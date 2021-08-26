@@ -15,6 +15,10 @@ info:
 paths:
   /message/feedback:
     $ref: ./paths/message-feedback.yaml
+  '/message/exclusion-rules/{ruleID}':
+    $ref: './paths/message-exclusion-rules@{ruleID}.yaml'
+  '/message/exclusion-rules':
+    $ref: './paths/message-exclusion-rules.yaml'
 servers:
   - url: 'https://{subdomain}.rbk.money/sender/{version}'
     variables:
