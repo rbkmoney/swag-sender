@@ -26,7 +26,7 @@ delete:
     - $ref: '../components/parameters/requestId.yaml'
     - $ref: '../components/parameters/ruleID.yaml'
   responses:
-    '200':
+    '204':
       description: Правило удалено
     '401':
       $ref: '../components/responses/AccessForbidden.yaml'
