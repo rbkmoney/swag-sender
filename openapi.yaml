@@ -48,6 +48,82 @@ paths:
           description: Сообщение успешно отправлено
         '400':
           $ref: '#/components/responses/BadRequest'
+  '/message/exclusion-rules/{ruleID}':
+    get:
+      summary: Получение правила исключения рассылки
+      tags:
+        - MessageExclusionRules
+      operationId: getMessageExclusionRule
+      parameters:
+        - $ref: '#/components/parameters/requestId'
+        - $ref: '#/components/parameters/ruleID'
+      responses:
+        '200':
+          description: Правило исключения рассылки
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageExclusionRule'
+        '401':
+          $ref: '#/components/responses/AccessForbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Удаление правила исключения рассылки
+      tags:
+        - MessageExclusionRules
+      operationId: deleteMessageExclusionRule
+      parameters:
+        - $ref: '#/components/parameters/requestId'
+        - $ref: '#/components/parameters/ruleID'
+      responses:
+        '204':
+          description: Правило удалено
+        '401':
+          $ref: '#/components/responses/AccessForbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /message/exclusion-rules:
+    post:
+      summary: Создание правила исключения рассылки
+      tags:
+        - MessageExclusionRules
+      operationId: createMessageExclusionRule
+      parameters:
+        - $ref: '#/components/parameters/requestId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageExclusionRuleRequest'
+      responses:
+        '200':
+          description: Созданное правило исключения рассылки
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageExclusionRule'
+        '401':
+          $ref: '#/components/responses/AccessForbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    get:
+      summary: Поиск правил исключения рассылки по типу
+      tags:
+        - MessageExclusionRules
+      operationId: getMessageExclusionRulesByType
+      parameters:
+        - $ref: '#/components/parameters/requestId'
+        - $ref: '#/components/parameters/ruleType'
+      responses:
+        '200':
+          description: Список правил исключения рассылки
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageExclusionRuleList'
+        '401':
+          $ref: '#/components/responses/AccessForbidden'
 servers:
   - url: 'https://{subdomain}.rbk.money/sender/{version}'
     variables:
@@ -83,6 +159,21 @@ components:
         minLength: 4
         maxLength: 64
         example: RQID-Z08G3EFE5DZ429VVO755BM19D51
+    ruleID:
+      name: ruleID
+      in: path
+      description: Идентификатор правила
+      required: true
+      schema:
+        type: integer
+        format: int64
+    ruleType:
+      name: type
+      in: query
+      description: Тип правила
+      required: true
+      schema:
+        $ref: '#/components/schemas/MessageExclusionRuleType'
   responses:
     BadRequest:
       description: Переданы ошибочные данные
@@ -100,3 +191,87 @@ components:
                   - invalidRequest
               message:
                 type: string
+    AccessForbidden:
+      description: Ошибка авторизации
+    NotFound:
+      description: Заданный ресурс не найден
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    MessageExclusionRuleType:
+      description: Тип правила исключения рассылки
+      type: string
+      enum:
+        - shop
+    MessageExclusionRule:
+      type: object
+      required:
+        - id
+        - name
+        - type
+        - value
+      properties:
+        id:
+          description: Идентификатор правила
+          type: integer
+          format: int64
+        name:
+          description: Название правила
+          type: string
+        type:
+          $ref: '#/components/schemas/MessageExclusionRuleType'
+        value:
+          description: Набор исключенных значений
+          type: array
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          minimum: 100
+          maximum: 600
+          description: The HTTP status code.
+        error:
+          type: string
+        type:
+          type: string
+          description: >-
+            A URI reference [[RFC3986](https://tools.ietf.org/html/rfc3986)]
+            that identifies the problem type. It should provide human-readable
+            documentation for the problem type. When this member is not present,
+            its value is assumed to be "about:blank".
+        title:
+          type: string
+          description: >-
+            A short, human-readable summary of the problem type. It SHOULD NOT
+            change from occurrence to occurrence of the problem, except for
+            purposes of localization.
+    MessageExclusionRuleList:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageExclusionRule'
+    MessageExclusionRuleRequest:
+      description: Запрос на создание правила исключения рассылки
+      type: object
+      required:
+        - name
+        - type
+        - value
+      properties:
+        name:
+          description: Название правила
+          type: string
+        type:
+          $ref: '#/components/schemas/MessageExclusionRuleType'
+        value:
+          description: Набор исключенных значений
+          type: array
+          items:
+            type: string
